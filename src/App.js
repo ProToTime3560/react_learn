@@ -12,7 +12,7 @@ function App() {
   let [따봉, 따봉변경] = useState([0,0,0]);
   let [modal, setModal] = useState([false,false,false]);
 
-  function 제목바꾸기(targetTitle) {
+  function 제목바꾸기() {
     let newArray = [...글제목];
     //var newArray = [...글제목]; 이것도 된다.
     newArray[0] = "여자코트 추천";
