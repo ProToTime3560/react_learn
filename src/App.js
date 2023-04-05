@@ -9,20 +9,10 @@ function App() {
     "파이썬독학",
   ]);
 
-  let posts = "강남 고기 맛집";
-
   let [따봉, 따봉변경] = useState([0,0,0]);
   let [modal, setModal] = useState([false,false,false]);
 
-  [1,2,3].map(function(a) { //
-    return '1233211'
-  })
-
-  function 함수() {
-    return 100;
-  }
-
-  function 제목바꾸기() {
+  function 제목바꾸기(targetTitle) {
     let newArray = [...글제목];
     //var newArray = [...글제목]; 이것도 된다.
     newArray[0] = "여자코트 추천";
@@ -87,10 +77,10 @@ function App() {
         글제목.map(function(a, i) {
           return  (
             <div className="list" key={i}>
-              <h4 onClick= { () => { 모달스위치(i) }} className="h4inline"> { 글제목[i] } </h4> //줄바꿈제거
+              <h4 onClick= { () => { 모달스위치(i) }} className="h4inline"> { 글제목[i] } </h4>
                   <span onClick= { () => { 반복문따봉변경(i) }}>👍 {" "} { 따봉[i] }</span>
               <p>2월 18일 발행</p>
-              {modal[i] == true ? <Modal /> : null}
+              {modal[i] == true ? <Modal 글제목변경={ 글제목변경 } 글제목={글제목[i]}  color ={'gray'}/> : null} 
               <hr/>
             </div>
 
@@ -110,14 +100,18 @@ function App() {
   } 
   이것도 됨
   const Modal = () => {} 이렇게 만들면 나중에 에러가 생길시 알려줌
+  props 부모->자식 state 전송가능 ex) <Modal 글제목={글제목[i]}
+  style= {{ background : props.color}}
+  color ={'orange'}
 */
-function Modal() {
+function Modal(props) {
   return (
-    <>
-      <div className="modal">
-        <h4></h4>
+    <> 
+      <div className="modal" style= {{ background : props.color}}>
+        <h4>{ props.글제목 }</h4>
         <p>날짜</p>
         <p>상세내용</p>
+        <button onClick= { () => { props.글제목변경(['여자코트 추천', '강남 우동맛집', '파이썬독학'])}}>글수정</button>
       </div>
     </>
   );
