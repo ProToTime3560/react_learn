@@ -7,6 +7,9 @@ body {
   'nanumsquare';
 }
 
+.h4inline {
+  display:inline
+}
 .modal {
   margin-top: 20px;
   padding: 20px;

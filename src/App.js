@@ -11,8 +11,12 @@ function App() {
 
   let posts = "강남 고기 맛집";
 
-  let [따봉, 따봉변경] = useState(0);
-  let [modal, setModal] = useState(false);
+  let [따봉, 따봉변경] = useState([0,0,0]);
+  let [modal, setModal] = useState([false,false,false]);
+
+  [1,2,3].map(function(a) { //
+    return '1233211'
+  })
 
   function 함수() {
     return 100;
@@ -36,18 +40,28 @@ function App() {
     글제목변경(newArray);
   }
 
-  function 모달스위치() {
-    if (modal == false) {
+  function 모달스위치(i) {
+    if (modal[i] == false) {
       <Modal />;
+      let tempArray = [...modal];
       let newModal = true;
-      setModal(newModal);
+      tempArray[i] = newModal;
+      setModal(tempArray);
       //setModal(!modal) 이걸로 setModal 자료 반대로바꾸는것 가능
     } else {
+      let tempArray = [...modal];
       let newModal = false;
-      setModal(newModal);
+      tempArray[i] = newModal;
+      setModal(tempArray);
     }
   }
 
+  function 반복문따봉변경(i) {
+    let tempArray = [...따봉];
+    tempArray[i] +=1;
+    따봉변경(tempArray);
+    //return 따봉[i];
+  }
   return (
     <div className="App">
       <div className="black-nav">
@@ -68,41 +82,21 @@ function App() {
       >
         글수정
       </button>
-      <div className="list">
-        <h3>
-          {" "}
-          {글제목[0]}{" "}
-          <span
-            onClick={() => {
-              따봉변경(따봉 + 1);
-            }}
-          >
-            👍
-          </span>{" "}
-          {따봉}{" "}
-        </h3>
-        <p>2월 17일 발행</p>
-        <hr />
-      </div>
-      <div className="list">
-        <h3> {글제목[1]} </h3>
-        <p>2월 18일 발행</p>
-        <hr />
-      </div>
-      <div className="list">
-        <h3
-          onClick={() => {
-            모달스위치();
-          }}
-        >
-          {" "}
-          {글제목[2]}{" "}
-        </h3>
-        <p>2월 19일 발행</p>
-        <hr />
-      </div>
 
-      {modal == true ? <Modal /> : null}
+      { 
+        글제목.map(function(a, i) {
+          return  (
+            <div className="list" key={i}>
+              <h4 onClick= { () => { 모달스위치(i) }} className="h4inline"> { 글제목[i] } </h4> //줄바꿈제거
+                  <span onClick= { () => { 반복문따봉변경(i) }}>👍 {" "} { 따봉[i] }</span>
+              <p>2월 18일 발행</p>
+              {modal[i] == true ? <Modal /> : null}
+              <hr/>
+            </div>
+
+          )
+        })
+      }
     </div>
   );
 }
@@ -121,7 +115,7 @@ function Modal() {
   return (
     <>
       <div className="modal">
-        <h4>제목</h4>
+        <h4></h4>
         <p>날짜</p>
         <p>상세내용</p>
       </div>
